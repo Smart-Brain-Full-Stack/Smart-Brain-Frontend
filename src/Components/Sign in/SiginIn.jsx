@@ -13,16 +13,17 @@ const SignIn = ({ setCurrUser }) => {
       const res = await fetch("http://localhost:3000/signin", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({ email: email, password: password }),
       });
 
       const data = await res.json();
 
-      if (data !== "not found") {
+      if (data !== "Wrong credentials") {
+        console.log(data);
         setCurrUser(data);
         navigate("/mainpage");
       } else {
-        console.log("Login failed");
+        alert("Login or password is incorrect!!!");
       }
     } catch (error) {
       console.error("Error:", error);

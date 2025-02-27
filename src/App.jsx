@@ -46,8 +46,7 @@ function App() {
         throw new Error(`HTTP error! Status: ${res.status}`);
       }
 
-      const entries = await res.json();
-
+      const { entries } = await res.json();
       setCurrUser((u) => ({ ...u, entries }));
     } catch (error) {
       console.error(error);
@@ -74,6 +73,7 @@ function App() {
           if (!response.ok) {
             throw new Error(`HTTP error! Status: ${res.status}`);
           }
+          //Updating entries
           Req();
           return response.json();
         })

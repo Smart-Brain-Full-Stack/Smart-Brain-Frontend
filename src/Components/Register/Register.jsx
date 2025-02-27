@@ -21,7 +21,7 @@ const Register = () => {
       const res = await fetch("http://localhost:3000/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email, password }),
+        body: JSON.stringify({ name: name, password: password, email: email }),
       });
 
       const data = await res.json();
