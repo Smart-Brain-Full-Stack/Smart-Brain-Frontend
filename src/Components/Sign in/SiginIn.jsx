@@ -17,13 +17,13 @@ const SignIn = ({ setCurrUser }) => {
       });
 
       const data = await res.json();
+      console.log(data);
 
-      if (data !== "Wrong credentials") {
-        console.log(data);
+      if (data === "Wrong credentials" || data === "unable to get user") {
+        alert("Login or password is incorrect!!!");
+      } else {
         setCurrUser(data);
         navigate("/mainpage");
-      } else {
-        alert("Login or password is incorrect!!!");
       }
     } catch (error) {
       console.error("Error:", error);

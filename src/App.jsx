@@ -131,7 +131,7 @@ function App() {
         element={
           <>
             <div className="App">
-              <Navigation setCurrUser={setCurrUser} />
+              <Navigation setCurrUser={setCurrUser} setImgUrl={setImgUrl} />
               <Logo />
               {currUser && (
                 <Rank name={currUser.name} entries={currUser.entries} />

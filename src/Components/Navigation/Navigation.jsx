@@ -1,10 +1,11 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-const Navigation = ({ setCurrUser }) => {
+const Navigation = ({ setCurrUser, setImgUrl }) => {
   const navigate = useNavigate();
   const resetUser = () => {
     setCurrUser();
+    setImgUrl();
     navigate("/");
   };
   return (
