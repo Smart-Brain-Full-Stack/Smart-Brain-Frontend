@@ -81,12 +81,14 @@ function App() {
             throw new Error(`HTTP error! Status: ${res.status}`);
           }
           //Updating entries
-          Req();
+
           return response.json();
         })
         .then((result) => {
           const regions = result.outputs[0].data.regions;
-
+          if (regions) {
+            Req();
+          }
           //assign
           let topRow, leftCol, bottomRow, rightCol;
           let tempBox = [];
