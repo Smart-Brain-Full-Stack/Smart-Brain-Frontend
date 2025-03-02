@@ -10,16 +10,18 @@ const SignIn = ({ setCurrUser }) => {
 
   const Req = async () => {
     try {
-      const res = await fetch("http://localhost:3000/signin", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: email, password: password }),
-      });
+      const res = await fetch(
+        "https://stark-ravine-11103-56024eaa1c1d.herokuapp.com/signin",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email: email, password: password }),
+        }
+      );
 
       const data = await res.json();
-      console.log(data);
 
-      if (data === "Wrong credentials" || data === "unable to get user") {
+      if (!data.id) {
         alert("Login or password is incorrect!!!");
       } else {
         setCurrUser(data);

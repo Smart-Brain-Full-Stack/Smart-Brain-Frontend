@@ -18,20 +18,26 @@ const Register = () => {
 
   const Req = async () => {
     try {
-      const res = await fetch("http://localhost:3000/register", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name: name, password: password, email: email }),
-      });
+      const res = await fetch(
+        "https://stark-ravine-11103-56024eaa1c1d.herokuapp.com/register",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            name: name,
+            password: password,
+            email: email,
+          }),
+        }
+      );
 
       const data = await res.json();
 
-      if (data) {
-        console.log(data);
+      if (data.id) {
         reset();
         navigate("/");
       } else {
-        console.log("Register failed");
+        alert("Register failed");
       }
     } catch (error) {
       console.error("Error:", error);

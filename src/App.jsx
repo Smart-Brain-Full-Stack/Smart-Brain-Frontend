@@ -23,9 +23,10 @@ function App() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch("http://localhost:3000");
-        const data = await res.json();
-        console.log(data);
+        const res = await fetch(
+          "https://stark-ravine-11103-56024eaa1c1d.herokuapp.com"
+        );
+        const data = res;
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -36,11 +37,14 @@ function App() {
 
   const Req = async () => {
     try {
-      const res = await fetch("http://localhost:3000/image", {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ id: currUser.id }),
-      });
+      const res = await fetch(
+        " https://stark-ravine-11103-56024eaa1c1d.herokuapp.com/image",
+        {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ id: currUser.id }),
+        }
+      );
 
       if (!res.ok) {
         throw new Error(`HTTP error! Status: ${res.status}`);
@@ -62,13 +66,16 @@ function App() {
     if (currUser) {
       setImgUrl(input);
 
-      fetch("http://localhost:3000/detect-face", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          imageUrl: input,
-        }),
-      })
+      fetch(
+        "https://stark-ravine-11103-56024eaa1c1d.herokuapp.com/detect-face",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            imageUrl: input,
+          }),
+        }
+      )
         .then((response) => {
           if (!response.ok) {
             throw new Error(`HTTP error! Status: ${res.status}`);
