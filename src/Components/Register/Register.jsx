@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { axiosinstance } from "../../../axiosinstance";
 
 const Register = () => {
   const [name, setName] = useState("");
@@ -18,20 +19,11 @@ const Register = () => {
 
   const Req = async () => {
     try {
-      const res = await fetch(
-        "https://stark-ravine-11103-56024eaa1c1d.herokuapp.com/register",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            name: name,
-            password: password,
-            email: email,
-          }),
-        }
-      );
-
-      const data = await res.json();
+      const { data } = await axiosinstance.post("/register", {
+        name: name,
+        password: password,
+        email: email,
+      });
 
       if (data.id) {
         reset();

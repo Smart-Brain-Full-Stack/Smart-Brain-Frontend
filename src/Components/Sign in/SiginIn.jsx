@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./SiginIn.css";
 import { useNavigate } from "react-router-dom";
+import { axiosinstance } from "../../../axiosinstance";
 
 const SignIn = ({ setCurrUser }) => {
   const [email, setEmail] = useState("");
@@ -10,16 +11,11 @@ const SignIn = ({ setCurrUser }) => {
 
   const Req = async () => {
     try {
-      const res = await fetch(
-        "https://stark-ravine-11103-56024eaa1c1d.herokuapp.com/signin",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email: email, password: password }),
-        }
-      );
+      const { data } = await axiosinstance.post(
+        "/signin",
 
-      const data = await res.json();
+        { email: email, password: password }
+      );
 
       if (!data.id) {
         alert("Login or password is incorrect!!!");
