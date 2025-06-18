@@ -10,6 +10,8 @@ import { Routes, Route } from "react-router-dom";
 import SignIn from "./Components/Sign in/SiginIn";
 import RegisterNav from "./Components/Sign in/RegisterNav";
 import Register from "./Components/Register/Register";
+import PublicRoute from "./Routes/PublicRoute";
+import ProtectedRoute from "./Routes/ProtectedRoute";
 
 function App() {
   const [input, setInput] = useState();
@@ -20,20 +22,20 @@ function App() {
   //will delete password later
   const [currUser, setCurrUser] = useState();
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await fetch(
-          "https://stark-ravine-11103-56024eaa1c1d.herokuapp.com"
-        );
-        const data = res;
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const res = await fetch(
+  //         "https://stark-ravine-11103-56024eaa1c1d.herokuapp.com"
+  //       );
+  //       const data = res;
+  //     } catch (error) {
+  //       console.error("Error fetching data:", error);
+  //     }
+  //   };
 
-    fetchData();
-  }, []);
+  //   fetchData();
+  // }, []);
 
   const Req = async () => {
     try {
@@ -127,31 +129,44 @@ function App() {
       <Route
         path="/"
         element={
-          <>
-            <RegisterNav />
-            <SignIn setCurrUser={setCurrUser} />
-          </>
+          <PublicRoute user={currUser}>
+            <>
+              <RegisterNav />
+              <SignIn setCurrUser={setCurrUser} />
+            </>
+          </PublicRoute>
         }
       />
-      <Route path="/register" element={<Register />} />
+
+      <Route
+        path="/register"
+        element={
+          <PublicRoute user={currUser}>
+            <Register />
+          </PublicRoute>
+        }
+      />
+
       <Route
         path="/mainpage"
         //main page
         element={
-          <>
-            <div className="App">
-              <Navigation setCurrUser={setCurrUser} setImgUrl={setImgUrl} />
-              <Logo />
-              {currUser && (
-                <Rank name={currUser.name} entries={currUser.entries} />
-              )}
-              <ImageLinkForm
-                onChangeInput={onChangeInput}
-                onSubmit={onSubmit}
-              />
-              <FaceRecognition imgUrl={imgUrl} boxes={boxes} />
-            </div>
-          </>
+          <ProtectedRoute user={currUser}>
+            <>
+              <div className="App">
+                <Navigation setCurrUser={setCurrUser} setImgUrl={setImgUrl} />
+                <Logo />
+                {currUser && (
+                  <Rank name={currUser.name} entries={currUser.entries} />
+                )}
+                <ImageLinkForm
+                  onChangeInput={onChangeInput}
+                  onSubmit={onSubmit}
+                />
+                <FaceRecognition imgUrl={imgUrl} boxes={boxes} />
+              </div>
+            </>
+          </ProtectedRoute>
         }
       />
     </Routes>
