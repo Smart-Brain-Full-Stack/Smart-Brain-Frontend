@@ -3,7 +3,7 @@ import Navigation from "./Components/Navigation/Navigation";
 import "tachyons";
 import Logo from "./Components/Logo/Logo";
 import ImageLinkForm from "./Components/ImageLinkForm/ImageLinkForm";
-import { Rank } from "./Components/Rank/Rank";
+import Rank from "./Components/Rank/Rank";
 import { useState, useEffect } from "react";
 import FaceRecognition from "./Components/FaceRecognition/FaceRecognition";
 import { Routes, Route } from "react-router-dom";

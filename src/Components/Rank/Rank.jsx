@@ -1,6 +1,6 @@
 import React from "react";
 
-export const Rank = ({ name, entries }) => {
+const Rank = ({ name, entries }) => {
   return (
     <div>
       <div className=" white f3">{name},your current entry is ...</div>
@@ -8,3 +8,5 @@ export const Rank = ({ name, entries }) => {
     </div>
   );
 };
+
+export default Rank;
