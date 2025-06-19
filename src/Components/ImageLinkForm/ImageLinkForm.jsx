@@ -15,6 +15,7 @@ const ImageLinkForm = ({ onChangeInput, onSubmit }) => {
             id=""
             className="f4 pa2 w-70 center"
             onChange={onChangeInput}
+            data-testid="input"
           />
           <button
             className="w-30 grow f4  ph3 pv2 dib white bg-light-purple br3 btn"
