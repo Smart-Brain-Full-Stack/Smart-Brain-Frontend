@@ -2,7 +2,7 @@ import React from "react";
 import Brain from "./Brain.jpg";
 const Logo = () => {
   return (
-    <div className="ma4 mt0">
+    <div className="ma4">
       <div className="Tilt-inner">
         <img
           src={Brain}

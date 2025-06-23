@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1750327270920" clover="3.2.0">
-  <project timestamp="1750327270920" name="All files">
+<coverage generated="1750356788857" clover="3.2.0">
+  <project timestamp="1750356788857" name="All files">
     <metrics statements="436" coveredstatements="53" conditionals="14" coveredconditionals="3" methods="13" coveredmethods="3" elements="463" coveredelements="59" complexity="0" loc="436" ncloc="436" packages="10" files="13" classes="13"/>
     <package name="Smart-Brain-Frontend">
       <metrics statements="4" coveredstatements="0" conditionals="1" coveredconditionals="0" methods="1" coveredmethods="0"/>

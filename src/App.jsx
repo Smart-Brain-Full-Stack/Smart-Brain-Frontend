@@ -1,7 +1,6 @@
 import "./App.css";
 import Navigation from "./Components/Navigation/Navigation";
 import "tachyons";
-import Logo from "./Components/Logo/Logo";
 import ImageLinkForm from "./Components/ImageLinkForm/ImageLinkForm";
 import Rank from "./Components/Rank/Rank";
 import { useState, useEffect } from "react";
@@ -139,7 +138,7 @@ function App() {
             <>
               <div className="App">
                 <Navigation setCurrUser={setCurrUser} setImgUrl={setImgUrl} />
-                <Logo />
+
                 {currUser && (
                   <Rank name={currUser.name} entries={currUser.entries} />
                 )}
