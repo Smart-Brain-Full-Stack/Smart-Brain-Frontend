@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 import Logo from "../Logo/Logo";
 
-const Navigation = ({ setCurrUser, setImgUrl }) => {
+const Navigation = ({ setCurrUser, setImgUrl, setShowModal }) => {
   const navigate = useNavigate();
 
   const resetUser = () => {
@@ -23,7 +23,7 @@ const Navigation = ({ setCurrUser, setImgUrl }) => {
       <Logo />
       <p
         className="f4 link dim black underline pa3 pointer mt3"
-        onClick={resetUser}
+        onClick={() => setShowModal((s) => !s)}
       >
         Profile Setting
       </p>

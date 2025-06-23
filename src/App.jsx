@@ -12,11 +12,13 @@ import Register from "./Components/Register/Register";
 import PublicRoute from "./Routes/PublicRoute";
 import ProtectedRoute from "./Routes/ProtectedRoute";
 import { axiosinstance } from "../axiosinstance";
+import Modal from "./Components/Modal/Modal";
 
 function App() {
   const [input, setInput] = useState();
   const [imgUrl, setImgUrl] = useState();
   const [boxes, setBoxes] = useState([]);
+  const [showModal, setShowModal] = useState(false);
 
   //currUser
   //will delete password later
@@ -137,7 +139,12 @@ function App() {
           <ProtectedRoute user={currUser}>
             <>
               <div className="App">
-                <Navigation setCurrUser={setCurrUser} setImgUrl={setImgUrl} />
+                <Modal showModal={showModal} setShowModal={setShowModal} />
+                <Navigation
+                  setCurrUser={setCurrUser}
+                  setImgUrl={setImgUrl}
+                  setShowModal={setShowModal}
+                />
 
                 {currUser && (
                   <Rank name={currUser.name} entries={currUser.entries} />
