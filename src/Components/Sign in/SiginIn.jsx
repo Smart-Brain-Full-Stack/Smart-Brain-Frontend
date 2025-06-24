@@ -17,10 +17,10 @@ const SignIn = ({ setCurrUser }) => {
         { email: email, password: password }
       );
 
-      if (!data.id) {
+      if (!data.data.user.id) {
         alert("Login or password is incorrect!!!");
       } else {
-        setCurrUser(data);
+        setCurrUser(data.data.user);
         navigate("/mainpage");
       }
     } catch (error) {

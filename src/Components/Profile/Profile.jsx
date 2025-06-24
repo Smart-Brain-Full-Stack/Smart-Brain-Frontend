@@ -18,8 +18,6 @@ const Profile = ({ setShowModal, currUser, setCurrUser }) => {
         payload
       );
 
-      console.log(data.data.user);
-
       setCurrUser(data.data.user);
       setShowModal(false);
     } catch (error) {
