@@ -139,7 +139,11 @@ function App() {
           <ProtectedRoute user={currUser}>
             <>
               <div className="App">
-                <Modal showModal={showModal} setShowModal={setShowModal} />
+                <Modal
+                  showModal={showModal}
+                  setShowModal={setShowModal}
+                  currUser={currUser}
+                />
                 <Navigation
                   setCurrUser={setCurrUser}
                   setImgUrl={setImgUrl}
