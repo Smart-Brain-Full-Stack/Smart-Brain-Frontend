@@ -143,6 +143,7 @@ function App() {
                   showModal={showModal}
                   setShowModal={setShowModal}
                   currUser={currUser}
+                  setCurrUser={setCurrUser}
                 />
                 <Navigation
                   setCurrUser={setCurrUser}
