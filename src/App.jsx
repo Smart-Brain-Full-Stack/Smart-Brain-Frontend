@@ -5,7 +5,7 @@ import ImageLinkForm from "./Components/ImageLinkForm/ImageLinkForm";
 import Rank from "./Components/Rank/Rank";
 import { useState, useEffect } from "react";
 import FaceRecognition from "./Components/FaceRecognition/FaceRecognition";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, data, useLocation } from "react-router-dom";
 import SignIn from "./Components/Sign in/SiginIn";
 import RegisterNav from "./Components/Sign in/RegisterNav";
 import Register from "./Components/Register/Register";
@@ -19,10 +19,10 @@ function App() {
   const [imgUrl, setImgUrl] = useState();
   const [boxes, setBoxes] = useState([]);
   const [showModal, setShowModal] = useState(false);
-
-  //currUser
-  //will delete password later
+  const [loading, setLoading] = useState(false);
   const [currUser, setCurrUser] = useState();
+
+  const location = useLocation();
 
   // useEffect(() => {
   //   const fetchData = async () => {
@@ -38,6 +38,29 @@ function App() {
 
   //   fetchData();
   // }, []);
+
+  useEffect(() => {
+    const fetchMe = async () => {
+      if (location.pathname === "/") return;
+
+      try {
+        setLoading(true);
+        const { data } = await axiosinstance.get("/profile/me");
+
+        setCurrUser(data.data.user);
+      } catch (error) {
+        const message = error?.response?.data?.message;
+        if (message === "Unauthorized") {
+          // It's expected on sign-in page, so chill
+          console.error("Unexpected error:", message || error.message);
+        }
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchMe();
+  }, []);
 
   const Req = async () => {
     try {
@@ -104,10 +127,17 @@ function App() {
         });
         setBoxes(tempBox);
       } catch (error) {
-        console.log("Error:", error);
+        console.error("Error:", error);
       }
     }
   };
+
+  if (loading)
+    return (
+      <div className="vh-100 flex items-center justify-center">
+        <div className="f3">Loading...</div>
+      </div>
+    );
 
   return (
     <Routes>

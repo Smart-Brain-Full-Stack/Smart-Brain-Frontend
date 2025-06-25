@@ -1,15 +1,16 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
 
 import Logo from "../Logo/Logo";
+import { axiosinstance } from "../../../axiosinstance";
 
 const Navigation = ({ setCurrUser, setImgUrl, setShowModal }) => {
-  const navigate = useNavigate();
+  const signout = async () => {
+    const { data } = await axiosinstance.post("/signout");
 
-  const resetUser = () => {
-    setCurrUser();
-    setImgUrl();
-    navigate("/");
+    if (data.status === "success") {
+      setCurrUser();
+      setImgUrl();
+    }
   };
 
   return (
@@ -29,7 +30,7 @@ const Navigation = ({ setCurrUser, setImgUrl, setShowModal }) => {
       </p>
       <p
         className="f4 link dim black underline pa3 pointer mt3"
-        onClick={resetUser}
+        onClick={signout}
       >
         Sign Out
       </p>

@@ -6,7 +6,6 @@ const Profile = ({ setShowModal, currUser, setCurrUser }) => {
   const [tempUser, setTempUser] = useState(currUser);
 
   const formSubmit = async () => {
-    console.log(formSubmit);
     const payload = {};
 
     if (tempUser.name !== currUser.name) payload.name = tempUser.name;
