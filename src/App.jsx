@@ -13,6 +13,7 @@ import PublicRoute from "./Routes/PublicRoute";
 import ProtectedRoute from "./Routes/ProtectedRoute";
 import { axiosinstance } from "../axiosinstance";
 import Modal from "./Components/Modal/Modal";
+import axios from "axios";
 
 function App() {
   const [input, setInput] = useState();
@@ -39,38 +40,15 @@ function App() {
   //   fetchData();
   // }, []);
 
-  useEffect(() => {
-    const fetchMe = async () => {
-      if (location.pathname === "/") return;
-
-      try {
-        setLoading(true);
-        const { data } = await axiosinstance.get("/profile/me");
-
-        setCurrUser(data.data.user);
-      } catch (error) {
-        const message = error?.response?.data?.message;
-        if (message === "Unauthorized") {
-          // It's expected on sign-in page, so chill
-          console.error("Unexpected error:", message || error.message);
-        }
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchMe();
-  }, []);
-
   const Req = async () => {
     try {
       const { data } = await axiosinstance.put("/image", { id: currUser.id });
 
-      if (!data.entries) {
+      if (!data.data.entries) {
         throw new Error(`HTTP error! Status`);
       }
 
-      const { entries } = data;
+      const { entries } = data.data;
 
       setCurrUser((u) => ({ ...u, entries }));
     } catch (error) {
@@ -100,6 +78,7 @@ function App() {
         if (regions) {
           Req();
         }
+
         //assign
         let topRow, leftCol, bottomRow, rightCol;
         let tempBox = [];
@@ -125,12 +104,52 @@ function App() {
           };
           tempBox.push(box);
         });
+
         setBoxes(tempBox);
       } catch (error) {
         console.error("Error:", error);
       }
     }
   };
+
+  useEffect(() => {
+    const fetchMe = async () => {
+      if (location.pathname === "/") return;
+
+      try {
+        setLoading(true);
+        const { data } = await axiosinstance.get("/profile/me");
+
+        setCurrUser(data.data.user);
+      } catch (error) {
+        const message = error?.response?.data?.message;
+        if (message === "Unauthorized") {
+          // It's expected on sign-in page, so chill
+          console.error("Unexpected error:", message || error.message);
+        }
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchMe();
+  }, []);
+
+  useEffect(() => {
+    if (!currUser?.entries) return;
+
+    const fetchEmoji = async () => {
+      const { data } = await axios.get(
+        `https://j9og0kc1pd.execute-api.ap-southeast-1.amazonaws.com/dev/rank?rank=${currUser.entries}`
+      );
+
+      const emoji = data.input;
+
+      setCurrUser((u) => ({ ...u, emoji }));
+    };
+
+    fetchEmoji();
+  }, [currUser?.entries]);
 
   if (loading)
     return (
@@ -181,9 +200,7 @@ function App() {
                   setShowModal={setShowModal}
                 />
 
-                {currUser && (
-                  <Rank name={currUser.name} entries={currUser.entries} />
-                )}
+                {currUser && <Rank currUser={currUser} />}
                 <ImageLinkForm
                   onChangeInput={onChangeInput}
                   onSubmit={onSubmit}
